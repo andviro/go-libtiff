@@ -20,7 +20,7 @@ func main() {
 			panic(err)
 		}
 
-		w, _ := os.Create(fmt.Sprintf("ttt%d.png", n))
+		w, _ := os.Create(fmt.Sprintf("page%d.png", n+1))
 		png.Encode(w, &img)
 	})
 	fmt.Printf("Total pages: %d\n", n)
