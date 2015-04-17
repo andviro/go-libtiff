@@ -14,16 +14,14 @@ func main() {
 	}
 	defer tiff.Close()
 
-	i := 0
-	tiff.Iter(func() {
+	n := tiff.Iter(func(n int) {
 		img, err := tiff.GetRGBA()
 		if err != nil {
 			panic(err)
 		}
 
-		w, _ := os.Create(fmt.Sprintf("ttt%d.png", i))
+		w, _ := os.Create(fmt.Sprintf("ttt%d.png", n))
 		png.Encode(w, &img)
-		i++
 	})
-
+	fmt.Printf("Total pages: %d\n", n)
 }

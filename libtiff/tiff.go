@@ -28,13 +28,16 @@ func (t Tiff) Close() {
 	C.TIFFClose(t.data)
 }
 
-func (t Tiff) Iter(cb func()) {
+func (t Tiff) Iter(cb func(int)) int {
+	n := 0
 	for {
-		cb()
+		cb(n)
+		n++
 		if C.TIFFReadDirectory(t.data) == 0 {
 			break
 		}
 	}
+	return n
 }
 
 func (t Tiff) SetDir(n int) error {
