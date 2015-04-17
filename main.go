@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"gitlab.com/Rodionoff/go-libtiff/libtiff"
+	"github.com/andiro/go-libtiff/libtiff"
 	"image/png"
 	"os"
 )
