@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/andiro/go-libtiff/libtiff"
+	"github.com/andviro/go-libtiff/libtiff"
 	"image/png"
 	"os"
 )
