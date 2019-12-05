@@ -3,11 +3,22 @@ package libtiff
 // #cgo LDFLAGS: -ltiff
 // #include <stdlib.h>
 // #include <tiffio.h>
+//
 //int getWH(TIFF *tif, int *w, int *h) {
 //if (!TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, w)) {
 //return 1;
 //}
 //if (!TIFFGetField(tif, TIFFTAG_IMAGELENGTH, h)) {
+//return 2;
+//}
+//return 0;
+//}
+//
+//int getRes(TIFF *tif, float *x, float *y) {
+//if (!TIFFGetField(tif, TIFFTAG_XRESOLUTION, x)) {
+//return 1;
+//}
+//if (!TIFFGetField(tif, TIFFTAG_YRESOLUTION, y)) {
 //return 2;
 //}
 //return 0;
@@ -45,6 +56,15 @@ func (t Tiff) SetDir(n int) error {
 		return errors.New("Invalid directory")
 	}
 	return nil
+}
+
+func (t Tiff) GetDPI() (float32, float32, error) {
+	var x, y C.float
+	if errCode := int(C.getRes(t.data, &x, &y)); errCode != 0 {
+		return 0, 0, errors.New(fmt.Sprintf("Error getting image resolution: %d", errCode))
+	}
+
+	return float32(x), float32(y), nil
 }
 
 func (t Tiff) GetRGBA() (image.RGBA, error) {
