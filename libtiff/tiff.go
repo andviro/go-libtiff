@@ -52,7 +52,7 @@ func (t Tiff) Iter(cb func(int)) int {
 }
 
 func (t Tiff) SetDir(n int) error {
-	if int(C.TIFFSetDirectory(t.data, C.uint16(n))) != 1 {
+	if int(C.TIFFSetDirectory(t.data, C.tdir_t(n))) != 1 {
 		return errors.New("Invalid directory")
 	}
 	return nil
